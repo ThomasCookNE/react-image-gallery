@@ -1,5 +1,5 @@
 {
-  "name": "react-image-gallery",
+  "name": "@tcne/web-react-image-gallery",
   "version": "0.6.4",
   "description": "React Carousel, React Image gallery, React Slide Show component",
   "main": "./build/image-gallery",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/xiaolin/react-image-gallery.git"
+    "url": "https://github.com/ThomasCookNE/react-image-gallery.git"
   },
   "keywords": [
     "react",
@@ -27,13 +27,13 @@
     "gallery",
     "slider"
   ],
-  "author": "Xiao Lin",
+  "author": "Team web 1",
   "email": "xiao@linxtion.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xiaolin/react-image-gallery/issues"
+    "url": "https://github.com/ThomasCookNE/react-image-gallery/issues"
   },
-  "homepage": "https://github.com/xiaolin/react-image-gallery",
+  "homepage": "https://github.com/ThomasCookNE/react-image-gallery",
   "devDependencies": {
     "babel-eslint": "^6.0.4",
     "babel-plugin-transform-object-assign": "^6.8.0",
