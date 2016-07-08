@@ -187,7 +187,7 @@ export default class ImageGallery extends React.Component {
       currentIndex: currentIndex,
       offsetPercentage: 0,
       style: {
-        transition: 'transform .45s ease-out'
+        transition: 'transform .5s ease'
       }
     })
   }
@@ -387,24 +387,34 @@ export default class ImageGallery extends React.Component {
     const basetranslateX = -100 * currentIndex
     const totalSlides = this.props.items.length - 1
 
-    let translateX = basetranslateX + (index * 100) + offsetPercentage
+    let translateX = offsetPercentage
+    if (index < currentIndex) {
+      translateX = -100 + offsetPercentage
+    } else if (index > currentIndex) {
+      translateX = 100 + offsetPercentage
+    }
     let zIndex = 1
+    if (index === currentIndex + 1 || index === currentIndex - 1) {
+      zIndex = 2;
+    }
 
     if (this.props.infinite && this.props.items.length > 2) {
       if (currentIndex === 0 && index === totalSlides) {
         // make the last slide the slide before the first
         translateX = -100 + offsetPercentage
+        zIndex = 2;
       } else if (currentIndex === totalSlides && index === 0) {
         // make the first slide the slide after the last
         translateX = 100 + offsetPercentage
+        zIndex = 2;
       }
     }
 
     // current index has more zIndex so slides wont fly by toggling infinite
     if (index === currentIndex) {
-      zIndex = 3
+      zIndex = 4
     } else if (index === this.state.previousIndex) {
-      zIndex = 2
+      zIndex = 3
     }
 
     const translate3d = `translate3d(${translateX}%, 0, 0)`
