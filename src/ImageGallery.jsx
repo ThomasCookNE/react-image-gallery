@@ -57,7 +57,8 @@ export default class ImageGallery extends React.Component {
       currentIndex: props.startIndex,
       thumbsTranslateX: 0,
       offsetPercentage: 0,
-      galleryWidth: 0
+      galleryWidth: 0,
+      slideClass: ''
     }
   }
 
@@ -186,9 +187,7 @@ export default class ImageGallery extends React.Component {
       previousIndex: this.state.currentIndex,
       currentIndex: currentIndex,
       offsetPercentage: 0,
-      style: {
-        transition: 'transform .5s ease'
-      }
+      slideClass: ''
     })
   }
 
@@ -285,7 +284,7 @@ export default class ImageGallery extends React.Component {
 
   _handleSwiping(index, _, delta) {
     const offsetPercentage = index * (delta / this.state.galleryWidth * 100)
-    this.setState({offsetPercentage: offsetPercentage, style: {}})
+    this.setState({offsetPercentage: offsetPercentage, slideClass: ' image-gallery-slide--swiping'})
   }
 
   _canNavigate() {
@@ -495,8 +494,8 @@ export default class ImageGallery extends React.Component {
       const slide = (
         <div
           key={index}
-          className={'image-gallery-slide' + alignment + originalClass}
-          style={Object.assign(this._getSlideStyle(index), this.state.style)}
+          className={'image-gallery-slide' + alignment + originalClass + this.state.slideClass}
+          style={this._getSlideStyle(index)}
           onClick={this.props.onClick}
         >
           {renderItem(item)}
