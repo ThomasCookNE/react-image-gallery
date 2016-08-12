@@ -386,11 +386,14 @@ export default class ImageGallery extends React.Component {
     const basetranslateX = -100 * currentIndex
     const totalSlides = this.props.items.length - 1
 
+    let marginLeft = 0;
     let translateX = offsetPercentage
     if (index < currentIndex) {
       translateX = -100 + offsetPercentage
+      marginLeft = -1;
     } else if (index > currentIndex) {
       translateX = 100 + offsetPercentage
+      marginLeft = 1;
     }
     let zIndex = 1
     if (index === currentIndex + 1 || index === currentIndex - 1) {
@@ -402,10 +405,12 @@ export default class ImageGallery extends React.Component {
         // make the last slide the slide before the first
         translateX = -100 + offsetPercentage
         zIndex = 2;
+        marginLeft = -1;
       } else if (currentIndex === totalSlides && index === 0) {
         // make the first slide the slide after the last
         translateX = 100 + offsetPercentage
         zIndex = 2;
+        marginLeft = 1;
       }
     }
 
@@ -424,7 +429,8 @@ export default class ImageGallery extends React.Component {
       msTransform: translate3d,
       OTransform: translate3d,
       transform: translate3d,
-      zIndex: zIndex
+      zIndex: zIndex,
+      marginLeft: marginLeft,
     }
   }
 
