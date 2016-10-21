@@ -1,0 +1,250 @@
+.gallery {
+  align-items: center;
+  animation: opacity-0-1 $transition-default 1 normal;
+  background: $color-black;
+  bottom: 0;
+  display: flex;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1000;
+
+  @media (min-width: $tablet-width) {
+    background: rgba($color-black, .9);
+  }
+
+  &__container {
+    background: $color-black;
+    margin: 0 auto;
+    max-width: 1280px;
+    position: relative;
+    width: 100%;
+
+    @media (min-width: $tablet-width) {
+      border: #444 solid 1px;
+    }
+
+    .button-close {
+      color: $color-white-dark;
+      position: fixed;
+      right: 0;
+      top: 0;
+      z-index: 6;
+
+      @media (min-width: $mobile-landscape-width) {
+        color: $color-white;
+      }
+
+      @media (min-width: $tablet-width) {
+        position: absolute;
+      }
+    }
+
+    .image-gallery-index {
+      bottom: 16px;
+      position: fixed;
+      width: calc(100% - 16px);
+
+      @media (min-width: $mobile-landscape-width) {
+        bottom: 0;
+        position: fixed;
+        right: 0;
+        width: auto;
+      }
+
+      @media (min-width: $tablet-width) {
+        position: absolute;
+      }
+    }
+  }
+}
+
+.image-gallery__image {
+  @include aspect-ratio(3, 2);
+  background: $color-black;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+
+  img,
+  video {
+    align-self: center;
+    max-height: 100%;
+    max-width: 100%;
+  }
+}
+
+.image-gallery-content {
+  .image-gallery-left-nav,
+  .image-gallery-right-nav {
+    bottom: -16px;
+    color: $color-white-dark;
+    cursor: pointer;
+    font-size: 3rem;
+    left: 20%;
+    line-height: 0;
+    position: fixed;
+    text-shadow: 0 0 5px $color-semi-transparent-black;
+    z-index: 5;
+
+    @media (min-width: $mobile-landscape-width) {
+      color: $color-white;
+      display: none;
+      font-size: 5rem;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 50%;
+    }
+
+    @media (min-width: $tablet-width) {
+      display: block;
+    }
+  }
+
+  .image-gallery-left-nav:before,
+  .image-gallery-right-nav:before {
+    content: '\66';
+    display: block;
+    font-family: $font-icon;
+    padding: 50px 10px;
+
+    @media (min-width: $tablet-width) {
+      height: calc(55% - 100px);
+      margin-top: 60%;
+      width: calc(100% - 15px);
+    }
+  }
+
+  .image-gallery-right-nav {
+    left: auto;
+    right: 20%;
+
+    @media (min-width: $mobile-landscape-width) {
+      right: 0;
+    }
+
+    @media (min-width: $tablet-width) {
+      text-align: right;
+    }
+
+    &:before {
+      content: '\63';
+    }
+  }
+}
+
+.image-gallery-slides {
+  line-height: 0;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
+
+.image-gallery-slide {
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: transform $transition-smooth;
+  width: 100%;
+
+  &.center {
+    position: relative;
+  }
+
+  &--swiping {
+    transition: none;
+  }
+}
+
+.image-gallery__description {
+  background: linear-gradient(to bottom, $color-transparent 0%, $color-semi-transparent-black 100%);
+  bottom: 0;
+  color: $color-white-dark;
+  font-size: 1.4rem;
+  height: 80px;
+  left: 0;
+  line-height: 1;
+  position: absolute;
+  text-align: left;
+  white-space: normal;
+  width: 100%;
+
+  @media (min-width: $tablet-width) {
+    color: $color-white;
+    font-size: 1.6rem;
+    height: 160px;
+  }
+
+  &__text {
+    bottom: 0;
+    display: inline-block;
+    padding: 10px;
+    position: absolute;
+  }
+}
+
+.image-gallery-thumbnails {
+  bottom: 0;
+  display: none;
+  left: 0;
+  margin: 0 20px 20px;
+  overflow: hidden;
+  padding-top: 5px;
+  position: fixed;
+
+  @media (min-width: $tablet-width) {
+    display: block;
+  }
+
+  .image-gallery-thumbnails-container {
+    cursor: pointer;
+    text-align: center;
+    transition: all .45s ease-out;
+    white-space: nowrap;
+  }
+}
+
+.image-gallery-thumbnail {
+  display: inline-block;
+  padding-right: 5px;
+
+  img {
+    border: transparent solid 6px;
+    height: 75px;
+    transition: border .3s ease-out;
+    vertical-align: middle;
+  }
+
+  &.active img {
+    border: $color-white solid 6px;
+  }
+}
+
+.image-gallery-index {
+  background: $color-semi-transparent-black-40;
+  bottom: 0;
+  color: $color-white-dark;
+  font-family: $font-light;
+  font-size: 1.8rem;
+  line-height: 1;
+  padding: 10px 8px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  z-index: 4;
+
+  @media (min-width: $tablet-width) {
+    color: $color-white;
+    padding: 10px;
+  }
+}
+
+@media (min-width: $tablet-width) {
+  html.touch .image-gallery-content .image-gallery-left-nav,
+  html.touch .image-gallery-content .image-gallery-right-nav {
+    display: none;
+  }
+}
