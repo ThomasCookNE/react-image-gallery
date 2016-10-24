@@ -2,8 +2,9 @@
   "name": "@tcne/web-react-image-gallery",
   "version": "0.6.6",
   "description": "React Carousel, React Image gallery, React Slide Show component",
-  "main": "./src/Gallery.jsx",
+  "main": "./lib/Gallery",
   "scripts": {
+    "build": "babel ./src --out-dir ./lib",
     "start": "node index.js"
   },
   "repository": {

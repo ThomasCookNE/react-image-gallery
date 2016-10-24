@@ -2,7 +2,7 @@ node_modules
 npm-debug.log
 .DS_Store
 
-build/
+lib/
 example/example.js
 example/example.js.map
 demo/

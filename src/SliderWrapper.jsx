@@ -61,13 +61,13 @@ class SliderWrapper extends Component {
   }
 
   enableBodyScroll() {
-    document.body.classList.remove('no-scroll');
+    document.body.classList.remove('gallery');
     scrollTo(0, offsetTop);
   }
 
   disableBodyScroll() {
     offsetTop = window.pageYOffset;
-    document.body.classList.add('no-scroll');
+    document.body.classList.add('gallery');
   }
 
   checkHeightLimit() {
