@@ -4,8 +4,6 @@ import ReactDOM from 'react-dom';
 import Gallery from '../src/Gallery';
 import images from './images';
 
-import './client.scss'
-
 class App extends React.Component {
 
   constructor() {
