@@ -530,6 +530,7 @@ export default class Slider extends React.Component {
             className={
               'image-gallery-thumbnail' +
               (currentIndex === index ? ' active' : '') +
+              ` image-gallery-thumbnail--${item.type}` +
               thumbnailClass
             }
 

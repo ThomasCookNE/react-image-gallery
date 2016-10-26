@@ -120,20 +120,44 @@ class SliderWrapper extends Component {
   renderItem(item) {
     const { contentHeight, contentWidth } = this.state;
 
+    let content = null;
+    switch (item.type) {
+      case 'video':
+        content = (
+          <video
+            src={item.original}
+            autoPlay
+            controls
+            loop
+            poster={item.poster}
+            style={{
+              maxHeight: contentHeight,
+              maxWidth: contentWidth,
+            }}
+          />
+        );
+        break;
+      case 'image':
+      default:
+        content = (
+          <img
+            src={item.original}
+            alt={item.originalAlt}
+            srcSet={item.srcSet}
+            sizes={item.sizes}
+            style={{
+              maxHeight: contentHeight,
+              maxWidth: contentWidth,
+            }}
+          />
+        );
+        break;
+    }
     return (
       <div className="gallery__imagecontainer">
         <div className={classNames('image-gallery__image', { 'image-gallery__image--portrait': item.portrait })}>
           <div className="content">
-            <img
-              src={item.original}
-              alt={item.originalAlt}
-              srcSet={item.srcSet}
-              sizes={item.sizes}
-              style={{
-                maxHeight: contentHeight,
-                maxWidth: contentWidth,
-              }}
-            />
+            {content}
             {item.description &&
               <span className="image-gallery__description">
                 <span className="image-gallery__description__text">
@@ -154,8 +178,10 @@ class SliderWrapper extends Component {
       const portrait = image.width && image.height && image.height > image.width;
       return {
         original: image.uri,
-        thumbnail: image.uri,
+        thumbnail: image.thumbnail || image.uri,
         description: image.text,
+        poster: image.poster,
+        type: image.type || 'image',
         portrait,
       };
     });

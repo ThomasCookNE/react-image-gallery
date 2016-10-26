@@ -1,13 +1,14 @@
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 
 const Splash = ({ images, select }) => {
   return (
     <div className="splash__images">
       {images.map((image, i) => {
         return (
-          <div key={i} className="splash__images__image" onClick={() => select(i)}>
+          <div key={i} className={classNames({ 'splash__images__image': image.type === 'image', 'splash__images__video': image.type === 'video' })} onClick={() => select(i)}>
             <div className="content">
-              <img src={image.uri} alt={image.text} />
+              <img src={image.poster || image.uri} alt={image.text} />
             </div>
           </div>
         );

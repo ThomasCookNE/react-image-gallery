@@ -21,20 +21,12 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.scss$/,
-        loader: 'style!css?sourceMap!postcss!resolve-url!sass?sourceMap!./remote-loader'
-      },
-      {
         test: /\.jsx*$/,
         exclude: [/node_modules/, /.+\.config.js/],
         loader: 'babel',
         query: {
           presets: ['react-hmre'],
         },
-      },
-      {
-        test: /\.(png|jpg|gif|woff|woff2)$/,
-        loader: 'url-loader?limit=8192&name=[name].[hash].[ext]'
       },
     ],
   },

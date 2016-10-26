@@ -15,6 +15,8 @@ app.use(webpackHotMiddleware(compiler));
 
 // Render Initial HTML
 app.get('/', (req, res) => {
+  //const cssjs = 'http://cssjs.dev.int/v2/css/main.css';
+  const cssjs = 'http://localhost:8880/v2/css/main.css';
   res.end(`
   <!DOCTYPE html>
   <html>
@@ -22,7 +24,7 @@ app.get('/', (req, res) => {
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>React Image Gallery</title>
-      <link href="http://cssjs.dev.int/v2/css/main.css" rel="stylesheet" type="text/css">
+      <link href="${cssjs}" rel="stylesheet" type="text/css">
     </head>
     <body>
       <div id="container"></div>
