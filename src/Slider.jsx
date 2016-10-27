@@ -430,7 +430,7 @@ export default class Slider extends React.Component {
       OTransform: translate3d,
       transform: translate3d,
       zIndex: zIndex,
-      marginLeft: marginLeft,
+      // marginLeft: marginLeft,
     }
   }
 
