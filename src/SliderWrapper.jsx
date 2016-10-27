@@ -26,9 +26,13 @@ class SliderWrapper extends Component {
   constructor(props) {
     super(props);
 
+    let videoPlaying = -1;
+    if (props.images[props.startIndex] && props.images[props.startIndex].type === 'video') {
+      videoPlaying = props.startIndex;
+    }
     this.state = {
       theatre: false,
-      videoPlaying: props.startIndex || -1,
+      videoPlaying,
     };
     this.videoRefs = [];
     this.checkHeightLimit = this.checkHeightLimit.bind(this);
@@ -174,7 +178,7 @@ class SliderWrapper extends Component {
 
   onSlide(index) {
     const { videoPlaying } = this.state;
-    if (videoPlaying >= 0) {
+    if (videoPlaying >= 0 && this.videoRefs[videoPlaying]) {
       this.videoRefs[videoPlaying].pause();
       this.setState({ videoPlaying: -1 });
     }
@@ -292,6 +296,7 @@ SliderWrapper.propTypes = {
     PropTypes.shape({
       uri: PropTypes.string.isRequired,
       text: PropTypes.string,
+      type: PropTypes.string,
     })
   ),
   close: PropTypes.func,
