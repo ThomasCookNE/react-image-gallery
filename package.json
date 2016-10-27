@@ -4,7 +4,9 @@
   "description": "React Carousel, React Image gallery, React Slide Show component",
   "main": "./lib/Gallery",
   "scripts": {
+    "prebuild": "rimraf lib",
     "build": "babel ./src --out-dir ./lib",
+    "prepublish": "npm run build",
     "start": "node index.js"
   },
   "repository": {
