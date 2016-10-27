@@ -1,6 +1,6 @@
 {
   "name": "@tcne/web-react-image-gallery",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "React Carousel, React Image gallery, React Slide Show component",
   "main": "./lib/Gallery",
   "scripts": {
