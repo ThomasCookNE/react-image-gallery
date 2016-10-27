@@ -14,7 +14,7 @@ class Gallery extends React.Component {
   }
 
   close() {
-    if (!this.smallScreen) {
+    if (window.innerWidth >= 768) {
       this.props.close();
     } else {
       this.setState({ galleryOpen: false });
@@ -27,7 +27,7 @@ class Gallery extends React.Component {
 
     return (
       <div className="splash">
-        {this.smallScreen && <Splash images={images} select={i => this.setState({ galleryOpen: true, selectedImage: i })}/>}
+        <Splash images={images} select={i => this.setState({ galleryOpen: true, selectedImage: i })} />
         <div className="splash__top-bar">
           <span className="splash__top-bar__title">{heading}</span>
         </div>

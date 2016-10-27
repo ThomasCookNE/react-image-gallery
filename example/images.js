@@ -27,7 +27,7 @@ export default [
   },
   {
     uri: "http://images1.ving.se/images/Hotel/HERASPR1042_2_30.jpg?v=2",
-    text: "Enrumslägenhet",
+    text: "Enrumslägenhet Enrumslägenhet Enrumslägenhet Enrumslägenhet Enrumslägenhet Enrumslägenhet",
     type: 'image',
   },
   {

@@ -504,7 +504,7 @@ export default class Slider extends React.Component {
           style={this._getSlideStyle(index)}
           onClick={this.props.onClick}
         >
-          {renderItem(item)}
+          {renderItem(item, index)}
         </div>
       )
 

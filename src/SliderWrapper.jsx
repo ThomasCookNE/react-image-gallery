@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Slider from './Slider';
 import classNames from 'classnames';
+import keycode from 'keycode';
 
 const containerMaxWidth = 1280;
 let offsetTop = 0;
@@ -24,7 +25,17 @@ function debounce(func, wait, immediate) {
 class SliderWrapper extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      theatre: false,
+      videoPlaying: props.startIndex || -1,
+    };
+    this.videoRefs = [];
     this.checkHeightLimit = this.checkHeightLimit.bind(this);
+    this.onSlide = this.onSlide.bind(this);
+    this.renderItem = this.renderItem.bind(this);
+    this.onKeyBoardEvent = this.onKeyBoardEvent.bind(this);
+    this.togglePlay = this.togglePlay.bind(this);
     const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     this.setMaxWidth = iOS ? debounce(this.setMaxWidth.bind(this), 500) : () => {};
   }
@@ -44,11 +55,55 @@ class SliderWrapper extends Component {
     this.disableBodyScroll();
     this.checkHeightLimit();
     window.addEventListener('resize', this.checkHeightLimit);
+    document.addEventListener('keydown', this.onKeyBoardEvent, false);
   }
 
   componentWillUnmount() {
     this.enableBodyScroll();
     window.removeEventListener('resize', this.checkHeightLimit);
+    document.removeEventListener('keydown', this.onKeyBoardEvent, false);
+  }
+
+  onKeyBoardEvent(event) {
+    switch (keycode(event)) {
+      case 'esc':
+        this.props.close();
+        break;
+      case 'space':
+      case 'k':
+        this.togglePlay(this.imageGallery.getCurrentIndex());
+        break;
+      case 'up':
+        this.videoRefs[this.imageGallery.getCurrentIndex()].volume = Math.min(1, 0.05 + this.videoRefs[this.imageGallery.getCurrentIndex()].volume);
+        break;
+      case 'down':
+        this.videoRefs[this.imageGallery.getCurrentIndex()].volume = Math.max(0, -0.05 + this.videoRefs[this.imageGallery.getCurrentIndex()].volume);
+        break;
+      case 'm':
+        this.videoRefs[this.imageGallery.getCurrentIndex()].muted = !this.videoRefs[this.imageGallery.getCurrentIndex()].muted;
+        break;
+      default:
+        break;
+    }
+  }
+
+  togglePlay(index) {
+    const { videoPlaying } = this.state;
+    if (this.videoRefs[index]) {
+      if (videoPlaying === index) {
+        this.videoRefs[index].pause();
+        this.setState({
+          videoPlaying: -1,
+          theatre: false,
+        });
+      } else {
+        this.videoRefs[index].play();
+        this.setState({
+          videoPlaying: index,
+          theatre: true,
+        });
+      }
+    }
   }
 
   setMaxWidth() {
@@ -117,22 +172,43 @@ class SliderWrapper extends Component {
     }
   }
 
-  renderItem(item) {
-    const { contentHeight, contentWidth } = this.state;
+  onSlide(index) {
+    const { videoPlaying } = this.state;
+    if (videoPlaying >= 0) {
+      this.videoRefs[videoPlaying].pause();
+      this.setState({ videoPlaying: -1 });
+    }
+  }
+
+  renderItem(item, index) {
+    const { startIndex } = this.props;
+    const { contentHeight, contentWidth, videoPlaying } = this.state;
 
     let content = null;
+    let icon = null;
     switch (item.type) {
       case 'video':
         content = (
           <video
+            ref={v => (this.videoRefs[index] = v)}
             src={item.original}
-            autoPlay
-            controls
+            autoPlay={index === startIndex}
             loop
-            poster={item.poster}
             style={{
               maxHeight: contentHeight,
               maxWidth: contentWidth,
+            }}
+          />
+        );
+        icon = (
+          <span
+            className={classNames({
+              'video-play': videoPlaying !== index,
+              'video-pause': videoPlaying === index,
+            })}
+            onClick={(e) => {
+              e.preventDefault();
+              this.togglePlay(index);
             }}
           />
         );
@@ -155,9 +231,10 @@ class SliderWrapper extends Component {
     }
     return (
       <div className="gallery__imagecontainer">
-        <div className={classNames('image-gallery__image', { 'image-gallery__image--portrait': item.portrait })}>
+        <div className={classNames(`image-gallery__${item.type}`, { 'image-gallery__image--portrait': item.portrait })}>
           <div className="content">
             {content}
+            {icon}
             {item.description &&
               <span className="image-gallery__description">
                 <span className="image-gallery__description__text">
@@ -172,7 +249,7 @@ class SliderWrapper extends Component {
   }
 
   render() {
-    const { showThumbnails, containerStyle, contentHeight, contentWidth } = this.state;
+    const { showThumbnails, containerStyle, contentHeight, contentWidth, theatre } = this.state;
     const { images, close, startIndex } = this.props;
     const items = images.map(image => {
       const portrait = image.width && image.height && image.height > image.width;
@@ -187,7 +264,7 @@ class SliderWrapper extends Component {
     });
 
     return (
-      <div className="gallery" onClick={e => !e.defaultPrevented && close()}>
+      <div className={classNames('gallery', { 'gallery--theatre': theatre })} onClick={e => !e.defaultPrevented && close()}>
         <div className="gallery__container" style={containerStyle}>
           <a className="button-close shadow tcneicon-close" />
           <div ref={i => (this.contentWrapper = i)} className="gallery__content" onClick={e => e.preventDefault()}>
@@ -195,8 +272,9 @@ class SliderWrapper extends Component {
               ref={i => (this.imageGallery = i)}
               items={items}
               showIndex
-              onClick={() => this.imageGallery.slideToIndex(this.imageGallery.getCurrentIndex() + 1)}
-              renderItem={item => this.renderItem(item)}
+              onSlide={this.onSlide}
+              onClick={(e) => !e.defaultPrevented && this.setState({ theatre: !theatre })}
+              renderItem={this.renderItem}
               showThumbnails={showThumbnails}
               maxHeight={contentHeight}
               maxWidth={contentWidth}
