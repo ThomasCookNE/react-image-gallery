@@ -15,8 +15,8 @@ app.use(webpackHotMiddleware(compiler));
 
 // Render Initial HTML
 app.get('/', (req, res) => {
-  //const cssjs = 'http://cssjs.dev.int/v2/css/main.css';
-  const cssjs = 'http://localhost:8880/v2/css/main.css';
+  const cssjs = 'http://cssjs.dev.int/v2/css/main.css';
+  //const cssjs = 'http://localhost:8880/v2/css/main.css';
   res.end(`
   <!DOCTYPE html>
   <html>
