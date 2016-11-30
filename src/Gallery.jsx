@@ -6,7 +6,7 @@ class Gallery extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.smallScreen =  window.innerWidth < 768;
+    this.smallScreen =  typeof window !== 'undefined' && window && window.innerWidth < 768;
     this.state = {
       selectedImage: 0,
       galleryOpen: !this.smallScreen,
