@@ -40,13 +40,16 @@ class SliderWrapper extends Component {
     this.renderItem = this.renderItem.bind(this);
     this.onKeyBoardEvent = this.onKeyBoardEvent.bind(this);
     this.togglePlay = this.togglePlay.bind(this);
-    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const iOS = typeof navigator !== 'undefined'
+      && typeof window !== 'undefined'
+      && /iPad|iPhone|iPod/.test(navigator.userAgent)
+      && !window.MSStream;
     this.setMaxWidth = iOS ? debounce(this.setMaxWidth.bind(this), 500) : () => {};
   }
 
   componentWillMount() {
-    const smallScreen = window.innerWidth < 768;
-    const isTouch = window.Modernizr && window.Modernizr.touch;
+    const smallScreen = typeof window !== 'undefined' && window.innerWidth < 768;
+    const isTouch = typeof window !== 'undefined' && window.Modernizr && window.Modernizr.touch;
 
     this.setState({
       showThumbnails: !(smallScreen && isTouch),
