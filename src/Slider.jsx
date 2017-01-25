@@ -222,7 +222,7 @@ export default class Slider extends React.Component {
 
   _handleMouseOverThumbnails(index) {
     if (this.props.slideOnThumbnailHover) {
-      this.setState({hovering: true})
+      this.setState({hovering: true, hoverIndex: index})
       if (this._thumbnailTimer) {
         window.clearTimeout(this._thumbnailTimer)
         this._thumbnailTimer = null
@@ -230,6 +230,8 @@ export default class Slider extends React.Component {
       this._thumbnailTimer = window.setTimeout(() => {
         this.slideToIndex(index)
       }, this._thumbnailDelay)
+    } else {
+      this.setState({hoverIndex: index});
     }
   }
 
@@ -387,7 +389,8 @@ export default class Slider extends React.Component {
     const totalSlides = this.props.items.length - 1
 
     let marginLeft = 0;
-    let translateX = offsetPercentage
+    let translateX = offsetPercentage;
+    let display = 'none';
     if (index < currentIndex) {
       translateX = -100 + offsetPercentage
       marginLeft = -1;
@@ -398,6 +401,7 @@ export default class Slider extends React.Component {
     let zIndex = 1
     if (index === currentIndex + 1 || index === currentIndex - 1) {
       zIndex = 2;
+      display = 'block';
     }
 
     if (this.props.infinite && this.props.items.length > 2) {
@@ -406,19 +410,23 @@ export default class Slider extends React.Component {
         translateX = -100 + offsetPercentage
         zIndex = 2;
         marginLeft = -1;
+        display = 'block';
       } else if (currentIndex === totalSlides && index === 0) {
         // make the first slide the slide after the last
         translateX = 100 + offsetPercentage
         zIndex = 2;
         marginLeft = 1;
+        display = 'block';
       }
     }
 
     // current index has more zIndex so slides wont fly by toggling infinite
     if (index === currentIndex) {
-      zIndex = 4
+      zIndex = 4;
+      display = 'block';
     } else if (index === this.state.previousIndex) {
-      zIndex = 3
+      zIndex = 3;
+      display = 'block';
     }
 
     const translate3d = `translate3d(${translateX}%, 0, 0)`
@@ -430,6 +438,7 @@ export default class Slider extends React.Component {
       OTransform: translate3d,
       transform: translate3d,
       zIndex: zIndex,
+      display,
       // marginLeft: marginLeft,
     }
   }
