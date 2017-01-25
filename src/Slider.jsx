@@ -222,7 +222,7 @@ export default class Slider extends React.Component {
 
   _handleMouseOverThumbnails(index) {
     if (this.props.slideOnThumbnailHover) {
-      this.setState({hovering: true, hoverIndex: index})
+      this.setState({hovering: true})
       if (this._thumbnailTimer) {
         window.clearTimeout(this._thumbnailTimer)
         this._thumbnailTimer = null
@@ -230,8 +230,6 @@ export default class Slider extends React.Component {
       this._thumbnailTimer = window.setTimeout(() => {
         this.slideToIndex(index)
       }, this._thumbnailDelay)
-    } else {
-      this.setState({hoverIndex: index});
     }
   }
 
