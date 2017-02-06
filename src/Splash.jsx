@@ -15,7 +15,7 @@ const Splash = ({ images, select }) => {
       })}
     </div>
   );
-}
+};
 
 Splash.propTypes = {
   images: PropTypes.arrayOf(
