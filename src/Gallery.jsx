@@ -33,7 +33,7 @@ class Gallery extends React.Component {
 
     return (
       <div className="splash">
-        <Splash images={images} select={i => { this.setState({ galleryOpen: true, selectedImage: selectedImageSwipe === -1 ? i : selectedImageSwipe }); }} />
+        <Splash images={images} select={i => this.setState({ galleryOpen: true, selectedImage: selectedImageSwipe === -1 ? i : selectedImageSwipe })} />
         <div className="splash__top-bar">
           <span className="splash__top-bar__title">{heading}</span>
         </div>
