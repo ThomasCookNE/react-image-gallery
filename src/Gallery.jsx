@@ -55,4 +55,8 @@ Gallery.propTypes = {
   close: PropTypes.func.isRequired,
 };
 
+Gallery.defaultProps = {
+  selectedImageSwipe: -1,
+};
+
 export default Gallery;
