@@ -260,9 +260,13 @@ class SliderWrapper extends Component {
     const { images, close, startIndex } = this.props;
     const items = images.map(image => {
       const portrait = image.width && image.height && image.height > image.width;
+      // NB: url is https when it comes directly from content
+      //     uri is http when it comes directly from content
+      //
+      //     Hotelweb renames url to uri, Favorite does not. Hence: url > uri.
       return {
-        original: image.uri,
-        thumbnail: image.thumbnail || image.uri,
+        original: image.url || image.uri,
+        thumbnail: image.thumbnail || image.url || image.uri,
         description: image.text,
         poster: image.poster,
         type: image.type || 'image',
