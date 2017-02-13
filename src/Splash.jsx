@@ -8,7 +8,7 @@ const Splash = ({ images, select }) => {
         return (
           <div key={i} className={classNames({ 'splash__images__image': image.type === 'image', 'splash__images__video': image.type === 'video' })} onClick={() => select(i)}>
             <div className="content">
-              <img src={image.poster || image.uri} alt={image.text} />
+              <img src={image.poster || image.url || image.uri} alt={image.text} />
             </div>
           </div>
         );
