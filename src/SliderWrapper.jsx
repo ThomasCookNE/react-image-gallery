@@ -301,7 +301,7 @@ class SliderWrapper extends Component {
 SliderWrapper.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
-      uri: PropTypes.string.isRequired,
+      uri: PropTypes.string,
       text: PropTypes.string,
       type: PropTypes.string,
     })

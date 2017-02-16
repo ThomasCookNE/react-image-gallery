@@ -47,7 +47,7 @@ class Gallery extends React.Component {
 Gallery.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
-      uri: PropTypes.string.isRequired,
+      uri: PropTypes.string,
       text: PropTypes.string,
     })
   ).isRequired,

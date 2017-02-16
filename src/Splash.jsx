@@ -20,7 +20,7 @@ const Splash = ({ images, select }) => {
 Splash.propTypes = {
   images: PropTypes.arrayOf(
     PropTypes.shape({
-      uri: PropTypes.string.isRequired,
+      uri: PropTypes.string,
       text: PropTypes.string,
     })
   ).isRequired,
