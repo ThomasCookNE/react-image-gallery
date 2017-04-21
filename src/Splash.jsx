@@ -6,7 +6,7 @@ const Splash = ({ images, select }) => {
       {images.map((image, i) => {
         let className = image.type === 'video' ? 'splash__images__video' : 'splash__images__image';
         return (
-          <div key={i} className={className}>
+          <div key={i} className={className} onClick={() => select(i)}>
             <div className="content">
               <img src={image.poster || image.url || image.uri} alt={image.text} />
             </div>
