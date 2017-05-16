@@ -582,7 +582,6 @@ export default class Slider extends React.Component {
                       this._canSlideLeft() &&
                         <a
                           className='image-gallery-left-nav'
-                          onTouchStart={slideLeft}
                           onClick={slideLeft}/>
 
                     }
@@ -590,7 +589,6 @@ export default class Slider extends React.Component {
                       this._canSlideRight() &&
                         <a
                           className='image-gallery-right-nav'
-                          onTouchStart={slideRight}
                           onClick={slideRight}/>
                     }
                   </span>,
